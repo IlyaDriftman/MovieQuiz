@@ -12,10 +12,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     @IBOutlet weak var noButton: UIButton!
     private var currentQuestionIndex = 0
     private var correctAnswers = 0
-    
     private let questionsAmount: Int = 10
-    
-    //private var questionFactory: QuestionFactoryProtocol = QuestionFactory()
     private var questionFactory: QuestionFactoryProtocol?
     private var currentQuestion: QuizQuestion?
     private var alertPresenter: AlertPresenterProtocol?
@@ -25,19 +22,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        statisticService = StatisticService()
-        let allValues = UserDefaults.standard.dictionaryRepresentation()
-        // Получаем все ключи словаря, затем в цикле удаляем их
-        allValues.keys.forEach { key in
-        UserDefaults.standard.removeObject(forKey: key)
-        }
-        
-        // Печатаем или обрабатываем все ключи и значения
-        for (key, value) in allValues {
-            print("\(key) - \(value)")
-        } 
-        
         setUpImageView()
+        statisticService = StatisticService()
         alertPresenter = AlertPresenter(viewController: self)
         let questionFactory = QuestionFactory()
         questionFactory.setup(delegate: self)
@@ -54,7 +40,6 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
 
         currentQuestion = question
         let viewModel = convert(model: question)
-        //show(quiz: viewModel)
         DispatchQueue.main.async { [weak self] in
             self?.show(quiz: viewModel)
         }
@@ -126,7 +111,6 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
                 title: "Этот раунд окончен!",
                 text: text,
                 buttonText: "Сыграть ещё раз")
-           // finishGame(correct: correctAnswers, total: questionsAmount)
             show(quiz: viewModel)
            
         } else {
@@ -152,20 +136,6 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         }
         )
         alertPresenter?.presenterAlert(on: self, with: model)
-        
-        //let alert = UIAlertController(
-        //title: result.title,
-        //message: result.text,
-       // preferredStyle: .alert)
-       // let action = UIAlertAction(title: result.buttonText, style: .default) { [weak self] _ in
-       // guard let self = self else { return }
-       // self.currentQuestionIndex = 0
-       // self.correctAnswers = 0
-        
-       // questionFactory.requestNextQuestion()
-       // }
-       // alert.addAction(action)
-       // present(alert, animated: true, completion: nil)
         }
         
     @IBAction private func noButtonClicked(_ sender: Any) {
@@ -179,7 +149,6 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     @IBAction private func yesButtonClicked(_ sender: Any) {
         blockButtons()
-       // let currentQuestion = questions[currentQuestionIndex]
         guard let currentQuestion = currentQuestion else {
             return
         }

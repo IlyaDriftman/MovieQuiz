@@ -36,8 +36,6 @@ final class StatisticService: StatisticServiceProtocol {
             let correct = storage.integer(forKey: "bestGame_correct")
             let total = storage.integer(forKey: "bestGame_total")
             let date = storage.object(forKey: "bestGame_date") as? Date ?? Date()
-            //let date = String(date1.dateTimeString)
-            //print(date.dateTimeString)
             return GameResult(correct: correct, total: total, date: date)
         }
         set {
@@ -52,32 +50,20 @@ final class StatisticService: StatisticServiceProtocol {
 
         // Обновляем общее количество правильных ответов и вопросов
         let currentCorrect = storage.integer(forKey: "totalCorrect")
-        
-        
-        print("достаем тз базы тоталкоррект - \(currentCorrect), а count - \(count)" )
-        
         let currentTotal = storage.integer(forKey: "totalQuestions")
-        
-        print("достаем тз базы тоталквестшн - \(currentTotal), а amount - \(amount)" )
-        
         storage.set(currentCorrect + count, forKey: "totalCorrect")
         storage.set(currentTotal + amount, forKey: "totalQuestions")
-        print("средняя точность \(totalAccuracy)")
+        
         
         // Создаём новый результат
         let newGame = GameResult(correct: count, total: amount, date: Date())
         
         if newGame.isBetterThan(bestGame) {
             bestGame = newGame
-            print("Новый рузльтат игры лучше чем в базе")
+          
         }
         
-        // Сравниваем с текущим лучшим результатом
-       // if newGame.accuracy > bestGame.accuracy {
-        //    bestGame = newGame
-        //   print("Новый рузльтат игры лучше чем в базе")
-            
-        //}
+    
     }
     
   
