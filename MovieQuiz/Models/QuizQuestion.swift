@@ -1,13 +1,7 @@
-//
-//  QuizQuestion.swift
-//  MovieQuiz
-//
-//  Created by Илья on 28.04.2025.
-//
 import Foundation
 import UIKit
 
-class QuizQuestion {
+struct QuizQuestion {
         let image: String
         let text: String
         let correctAnswer: Bool
@@ -16,6 +10,6 @@ class QuizQuestion {
         self.image = image
         self.text = text
         self.correctAnswer = correctAnswer
-    }
+        }
     }
 
