@@ -1,15 +1,7 @@
 import Foundation
-import UIKit
 
 struct QuizQuestion {
-        let image: String
-        let text: String
-        let correctAnswer: Bool
-    
-    init(image: String, text: String, correctAnswer: Bool) {
-        self.image = image
-        self.text = text
-        self.correctAnswer = correctAnswer
-        }
-    }
-
+    let image: Data         // данные изображения
+    let text: String        // текст вопроса
+    let correctAnswer: Bool // правильный ответ
+}
