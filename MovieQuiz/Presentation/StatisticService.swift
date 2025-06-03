@@ -36,7 +36,6 @@ final class StatisticService: StatisticServiceProtocol {
     
     func store(correct count: Int, total amount: Int) {
         gamesCount += 1
-        // Обновляем общее количество правильных ответов и вопросов
         let currentCorrect = storage.integer(forKey: "totalCorrect")
         let currentTotal = storage.integer(forKey: "totalQuestions")
         storage.set(currentCorrect + count, forKey: "totalCorrect")

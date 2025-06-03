@@ -1,9 +1,3 @@
-//
-//  QuizResultsViewModel.swift
-//  MovieQuiz
-//
-//  Created by Илья on 28.04.2025.
-//
 import UIKit
 
 struct QuizResultsViewModel {
