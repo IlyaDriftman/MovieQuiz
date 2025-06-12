@@ -8,7 +8,7 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
     @IBOutlet weak var noButton: UIButton!
     
     private var alertPresenter: AlertPresenterProtocol?
-    private var presenter: MovieQuizPresenter!
+    private var presenter: MovieQuizPresenter?
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -69,9 +69,9 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
     }
     
     func show(quiz result: QuizResultsViewModel) {
-        let message = presenter.makeResultsMessage()
+        guard let message = presenter?.makeResultsMessage() else { return }
         let model = AlertModel(title: result.title, message: message, buttonText: result.buttonText, completion: {
-            self.presenter.restartGame()
+            self.presenter?.restartGame()
         },
                                id: "resultAlert"
         )
@@ -79,11 +79,11 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
     }
     
     @IBAction private func noButtonClicked(_ sender: UIButton) {
-        presenter.noButtonClicked()
+        presenter?.noButtonClicked()
     }
     
     @IBAction private func yesButtonClicked(_ sender: UIButton) {
-        presenter.yesButtonClicked()
+        presenter?.yesButtonClicked()
     }
     
     func showLoadingIndicator() {
@@ -101,7 +101,7 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
                                buttonText: "Попробовать еще раз",
                                completion: { [weak self] in
             guard let self else { return }
-            self.presenter.restartGame()
+            self.presenter?.restartGame()
         },
                                id: "errorAlert"
         )
